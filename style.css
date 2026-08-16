@@ -1,0 +1,543 @@
+/* ==========================================================================
+   Embedded Hardware Studio · Fluid Aurora & 3D Glassmorphism Design System
+   参考 Apple / Linear / Vercel 现代科技美学
+   ========================================================================== */
+
+:root {
+    color-scheme: light;
+
+    /* 色彩系统 */
+    --bg-base: #F8FAFC;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+
+    /* 品牌渐变与强调色 */
+    --foc-blue: #2563EB;
+    --foc-cyan: #06B6D4;
+    --h7-purple: #7C3AED;
+    --h7-pink: #EC4899;
+
+    /* 字体族 */
+    --font-heading: "Outfit", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", "SF Mono", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   极客点阵工程网格 (Dot Matrix Grid)
+   ========================================================================== */
+.dot-matrix-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.22) 1px, transparent 1px);
+    background-size: 28px 28px;
+    z-index: 1;
+    pointer-events: none;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+}
+
+/* ==========================================================================
+   柔和流体极光 Canvas 背景
+   ========================================================================== */
+#auroraCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   极简顶栏
+   ========================================================================== */
+.hub-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 68px;
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    background: rgba(248, 250, 252, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hub-brand-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+}
+
+.hub-brand-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hub-brand-title {
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 750;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+}
+
+.hub-brand-badge {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--foc-blue);
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    padding: 2px 7px;
+    border-radius: 5px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.clock-display {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.status-capsule {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* ==========================================================================
+   居中核心工作台舞台
+   ========================================================================== */
+.hub-main-stage {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 110px 24px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 核心标题区 */
+.hero-intro {
+    text-align: center;
+    max-width: 780px;
+    margin-bottom: 48px;
+    animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5.5px 15px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(203, 213, 225, 0.7);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.hero-badge-sparkle {
+    font-size: 13px;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(36px, 4.8vw, 56px);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    background: linear-gradient(180deg, #0F172A 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: clamp(15px, 1.4vw, 16.5px);
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   双旗舰上位机 3D 悬浮毛玻璃卡片组
+   ========================================================================== */
+.workbench-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    width: 100%;
+    max-width: 1040px;
+    perspective: 1200px;
+    animation: gridFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+    opacity: 0;
+}
+
+@keyframes gridFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.workbench-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06),
+                0 4px 12px -2px rgba(15, 23, 42, 0.03);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    padding: 36px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out, border-color 0.25s ease-out;
+    transform-style: preserve-3d;
+}
+
+.workbench-card:hover {
+    box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.12),
+                0 8px 24px -4px rgba(15, 23, 42, 0.06);
+    border-color: rgba(255, 255, 255, 1);
+}
+
+/* 鼠标动态光晕探照灯层 */
+.card-glow-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 24px;
+    background: radial-gradient(
+        420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.85),
+        transparent 60%
+    );
+    z-index: 1;
+}
+
+.workbench-card:hover .card-glow-layer {
+    opacity: 1;
+}
+
+.card-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transform: translateZ(24px);
+}
+
+/* 卡片顶栏 */
+.card-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.workbench-card:hover .card-icon {
+    transform: scale(1.08) rotate(3deg);
+}
+
+.card-icon-foc {
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+    color: var(--foc-blue);
+    border: 1px solid rgba(191, 219, 254, 0.8);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.12);
+}
+
+.card-icon-h7 {
+    background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%);
+    color: var(--h7-purple);
+    border: 1px solid rgba(233, 213, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+}
+
+.card-chip-tag {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4.5px 11px;
+    border-radius: 9999px;
+    background: rgba(241, 245, 249, 0.85);
+    border: 1px solid rgba(203, 213, 225, 0.7);
+    color: var(--text-secondary);
+}
+
+/* 卡片文本内容 */
+.card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.card-version-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.card-desc {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    min-height: 44px;
+}
+
+/* 动态微参数面板 */
+.card-mini-telemetry {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background: rgba(241, 245, 249, 0.6);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 22px;
+}
+
+.telemetry-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.telemetry-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.telemetry-val {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--text-primary);
+}
+
+/* 特性胶囊徽章 */
+.card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.feature-tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(241, 245, 249, 0.9);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    color: var(--text-secondary);
+}
+
+/* 卡片启动按钮 */
+.card-action-footer {
+    margin-top: auto;
+}
+
+.card-launch-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 13px 22px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 650;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+}
+
+.btn-foc {
+    background: #0F172A;
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+}
+
+.workbench-card:hover .btn-foc {
+    background: var(--foc-blue);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-h7 {
+    background: #0F172A;
+    color: #FFFFFF;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+}
+
+.workbench-card:hover .btn-h7 {
+    background: var(--h7-purple);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+    transform: translateY(-2px);
+}
+
+.card-launch-btn svg {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.workbench-card:hover .card-launch-btn svg {
+    transform: translateX(4px);
+}
+
+/* ==========================================================================
+   页脚提示
+   ========================================================================== */
+.hub-footer {
+    margin-top: 52px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   响应式断点
+   ========================================================================== */
+@media (max-width: 860px) {
+    .hub-header {
+        padding: 0 24px;
+    }
+    .clock-display {
+        display: none;
+    }
+    .workbench-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .workbench-card {
+        padding: 28px;
+    }
+    .hero-intro {
+        margin-bottom: 36px;
+    }
+}

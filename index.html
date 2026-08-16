@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Studio · Next-Gen Hardware Engineering Suite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 极客点阵工程网格 (Subtle Hardware Dot Grid) -->
+    <div class="dot-matrix-grid"></div>
+
+    <!-- 柔和流体极光漫射 Canvas -->
+    <canvas id="auroraCanvas"></canvas>
+
+    <!-- 顶栏导航 -->
+    <header class="hub-header">
+        <div class="header-left">
+            <div class="hub-brand-logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+            </div>
+            <div class="hub-brand-info">
+                <span class="hub-brand-title">Embedded Studio</span>
+                <span class="hub-brand-badge">PRO SUITE</span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="clock-display" id="systemClock">--:--:--</div>
+            <div class="status-capsule">
+                <span class="status-dot"></span>
+                <span>Web Serial Engine Ready</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 居中核心工作台舞台 -->
+    <main class="hub-main-stage">
+        <!-- 核心标题区 -->
+        <section class="hero-intro">
+            <div class="hero-badge">
+                <span class="hero-badge-sparkle">✨</span>
+                <span>Unified Hardware Engineering Suite</span>
+            </div>
+            <h1 class="hero-title">
+                Next-Gen Embedded Engineering Studio
+            </h1>
+            <p class="hero-subtitle">
+                面向现代嵌入式硬件的极速网页端全功能工作台，纯浏览器驱动、免驱直连、低延迟遥测绘图与多媒体资源烧录。
+            </p>
+        </section>
+
+        <!-- 双旗舰上位机 3D 悬浮毛玻璃卡片组 -->
+        <section class="workbench-grid">
+            <!-- 卡片 1: G3507 FOC 电机矢量控制台 -->
+            <div class="workbench-card card-foc-theme" id="cardFoc" data-href="foc_studio/index.html">
+                <div class="card-glow-layer"></div>
+                <div class="card-inner">
+                    <div class="card-top-bar">
+                        <div class="card-icon card-icon-foc">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 3v3m0 12v3M3 12h3m12 0h3"></path>
+                                <circle cx="12" cy="12" r="3" fill="currentColor" fill-opacity="0.2"></circle>
+                                <line x1="12" y1="12" x2="16" y2="8" stroke-width="2.5" stroke-linecap="round"></line>
+                            </svg>
+                        </div>
+                        <div class="card-chip-tag">TI MSPM0 G3507</div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-title-row">
+                            <h2 class="card-title">G3507 FOC Studio</h2>
+                            <span class="card-version-tag">v2.4 PRO</span>
+                        </div>
+                        <p class="card-desc">
+                            无刷电机高性能矢量控制与实时遥测系统，支持 5 通道 JustFloat 示波器波形采集、LADRC 矩阵在线整定及 Flash 读写。
+                        </p>
+
+                        <!-- 真实硬件参数面板 -->
+                        <div class="card-mini-telemetry">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">通信波特率</span>
+                                <span class="telemetry-val">460,800 · 8N1</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">核心算法</span>
+                                <span class="telemetry-val">LADRC 自抗扰调参</span>
+                            </div>
+                        </div>
+
+                        <div class="card-features">
+                            <span class="feature-tag">5通道 JustFloat 遥测</span>
+                            <span class="feature-tag">LADRC 闭环矩阵</span>
+                            <span class="feature-tag">60FPS 示波器 / CSV 导出</span>
+                        </div>
+                    </div>
+
+                    <div class="card-action-footer">
+                        <a href="foc_studio/index.html" class="card-launch-btn btn-foc">
+                            <span>进入 FOC 控制台</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 卡片 2: STM32 H7RS Resource Flasher 固件资源烧录器 -->
+            <div class="workbench-card card-h7-theme" id="cardH7" data-href="h7rs_flasher/index.html">
+                <div class="card-glow-layer"></div>
+                <div class="card-inner">
+                    <div class="card-top-bar">
+                        <div class="card-icon card-icon-h7">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                                <rect x="3" y="3" width="18" height="18" rx="3" ry="3"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <div class="card-chip-tag">STM32 H7RS</div>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-title-row">
+                            <h2 class="card-title">H7RS Resource Flasher</h2>
+                            <span class="card-version-tag">v1.2 PRO</span>
+                        </div>
+                        <p class="card-desc">
+                            嵌入式 LCD 屏幕多媒体资源烧录工作台，支持图片解析、动画组打包、视频按帧率自动抽帧合成与极速串口烧录。
+                        </p>
+
+                        <!-- 真实硬件参数面板 -->
+                        <div class="card-mini-telemetry">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">多媒体支持</span>
+                                <span class="telemetry-val">图片 / 动画 / MP4抽帧</span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">显示预览</span>
+                                <span class="telemetry-val">LCD 实时渲染画布</span>
+                            </div>
+                        </div>
+
+                        <div class="card-features">
+                            <span class="feature-tag">图片与动画序列打包</span>
+                            <span class="feature-tag">视频自动抽帧合成</span>
+                            <span class="feature-tag">USB UPDATE 极速分包烧录</span>
+                        </div>
+                    </div>
+
+                    <div class="card-action-footer">
+                        <a href="h7rs_flasher/index.html" class="card-launch-btn btn-h7">
+                            <span>进入烧录工作台</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部提示 -->
+        <footer class="hub-footer">
+            <span>Supported Browsers: Chrome 89+, Edge 89+, Opera 75+ · 基于 Web Serial API 原生免驱直连</span>
+        </footer>
+    </main>
+
+    <!-- 交互脚本：流体极光背景引擎 + 3D 物理视差与时钟 -->
+    <script src="aurora.js"></script>
+</body>
+</html>
